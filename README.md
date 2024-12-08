@@ -11,7 +11,7 @@ Template for Running a ASP .NET Core MVC
 
 1. **Clone the Repository**
    ```bash
-   git clone https://github.com/your-username/your-repo-name.git
+   git clone https://github.com/manar-hussein/MVC-Demo-Project.git
    cd your-repo-name
 
 2. **Navigate to the main Folder**
