@@ -1,0 +1,132 @@
+﻿@model IndexStoreViewModel
+@{
+    ViewData["Title"] = "Index";
+    Layout = "_MyLayout";
+}
+
+
+<div id="partial-view">
+    <partial name="Create" model="@Model.CreateViewModel" />
+</div>
+
+<table class="table text-center text-white fs-5 fw-bolder">
+    <thead>
+        <tr>
+            <th>
+                Number
+            </th>
+            <th>
+                Store Name
+            </th>
+            <th>
+                Details
+            </th>
+            <th>
+                Update Store
+            </th>
+            <th>
+                Delete Store
+            </th>
+        </tr>
+    </thead>
+    <tbody>
+        @{
+            int index = 0;
+        }
+        @foreach (var item in Model.AllStoresModel.Items)
+        {
+            index++;
+            <tr>
+                <td>
+                    @index
+                </td>
+                <td>
+                    @item.Name
+                </td>
+                <td>
+                    <a class="btn btn-info fw-bolder text-white fs-6 px-2 details-btn" asp-action="Details" asp-route-id="@item.Id" ><i class="fa-solid fa-circle-info fw-bolder text-white"></i>Details</a>
+                </td>
+                <td>
+                    <a class="btn btn-warning fw-bolder text-white fs-6 px-2 update-btn" data-id="@item.Id"><i class="fa-solid fa-pen-to-square fw-bolder text-white"></i>Update</a>
+                </td>
+                <td>
+                    <a class="btn btn-danger fw-bolder text-white fs-6 px-2 delete-btn" data-id="@item.Id"><i class="fa-solid fa-trash fw-bolder text-white"></i>Delete</a>
+                </td>
+            </tr>
+        }
+    </tbody>
+</table>
+
+<nav aria-label="Page navigation example" class="mx-auto d-flex justify-content-center my-5">
+    <ul class="pagination mx-auto text-center ">
+        <li class="page-item">
+            <a class="page-link text-black fw-bolder" href="#" aria-label="Previous">
+                <span aria-hidden="true">&laquo;</span>
+            </a>
+        </li>
+        @for(int i = 1;i<=Model.AllStoresModel.TotalPages;i++)
+        {
+            <li class="page-item text-black"><a class="page-link text-black fw-bolder"  asp-route-pageIndex="@i">@i</a></li>
+        }
+        <li class="page-item text-black">
+            <a class="page-link text-black fw-bolder" href="#" aria-label="Next">
+                <span aria-hidden="true">&raquo;</span>
+            </a>
+        </li>
+    </ul>
+</nav>
+
+<script src="~/lib/jquery/dist/jquery.min.js"></script>
+<script>
+  $(document).ready(function () {
+    $(document).on('click', '.update-btn', function (e) {
+        e.preventDefault(); // Prevent the default anchor behavior
+        var id = $(this).data('id'); // Get the ID from the anchor's data attribute
+        // AJAX call to fetch the update partial view
+           $.ajax({
+              url: '/Store/Update', // Replace 'ControllerName' with your actual controller name
+              type: 'GET',
+              data: { Id: id },
+              success: function (partialView) {
+                  // Inject the returned partial view into the container
+                  console.log(partialView)
+                    $('#partial-view').html(partialView);
+              },
+              error: function () {
+                  alert('Failed to load the update view. Please try again.');
+              }
+          });
+    });
+
+         $(document).on('click', '.delete-btn', function (e) {
+          e.preventDefault(); // Prevent the default anchor behavior
+          var id = $(this).data('id'); // Get the ID from the anchor's data attribute
+          // AJAX call to fetch the update partial view
+             $.ajax({
+                url: '/Store/Delete', // Replace 'ControllerName' with your actual controller name
+                type: 'GET',
+                data: { Id: id },
+                success: function (partialView) {
+                    // Inject the returned partial view into the container
+                    console.log(partialView)
+                      $('#partial-view').html(partialView);
+                },
+                error: function () {
+                    alert('Failed to load the update view. Please try again.');
+                }
+            });
+      });
+
+
+       });
+</script>
+
+@section Scripts
+{
+    @{
+        await Html.RenderPartialAsync("_ValidationScriptsPartial");
+    }
+}
+
+
+   

@@ -1,0 +1,27 @@
+﻿@model GetItemViewModel
+<h1 class="text-center display-5 dm-serif-text-regular-italic">Update Item</h1>
+<hr />
+<div class="row justify-content-center py-5">
+    <div class="col-md-9">
+        <form asp-action="Update">
+            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+            <div class="form-group">
+                <label asp-for="Name" class="control-label"></label>
+                <input asp-for="Name" class="form-control w-100" />
+                <span asp-validation-for="Name" class="text-danger"></span>
+            </div>
+            <div class="form-group" hidden>
+                <label asp-for="Id" class="control-label"></label>
+                <input asp-for="Id" class="form-control" />
+                <span asp-validation-for="Id" class="text-danger"></span>
+            </div>
+            <div class="form-group d-flex justify-content-center my-4 text-center">
+                <input type="submit" value="Save" class="btn btn-primary me-5 w-25  fs-5 fw-bolder text-white dm-serif-text-regular-italic" />
+                <a asp-action="Index" class="btn btn-danger w-25  fs-5 fw-bolder text-white dm-serif-text-regular-italic">Cancel</a>
+            </div>
+        </form>
+    </div>
+</div>
+
+
+

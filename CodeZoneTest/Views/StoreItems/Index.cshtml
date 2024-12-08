@@ -1,0 +1,107 @@
+﻿@model IndexItemsStoresViewModel
+@{
+    ViewData["Title"] = "Index";
+    Layout = "~/Views/Shared/_MyLayout.cshtml";
+    SelectList stores = new SelectList(Model.AllStore, "Id", "Name");
+    SelectList items = new SelectList(Model.AllItems, "Id", "Name");
+}
+
+<h1 class="text-center display-5 dm-serif-text-regular-italic">Assign Items To Store </h1>
+<div class="row justify-content-center py-5">
+    <div class="col-md-9">
+        <form asp-action="Add" method="post" class="w-100">
+            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+            <select  asp-items="stores" asp-for="StoreId" class="form-select my-3 store" aria-label="Default select example">
+                <option selected>select Store</option>
+            </select>
+            <select asp-items="items" asp-for="ItemId"  class="form-select my-3 item" aria-label="Default select example">
+                <option selected>select Item</option>
+            </select>
+            <div class="form-group w-100 my-3">
+                <label asp-for="ItemQuantity" class="control-label fs-5 ms-1"></label>
+                <input  asp-for="ItemQuantity" class="form-control w-100 quantity" />
+                <span asp-validation-for="ItemQuantity" class="text-danger"></span>
+            </div>
+            <div class="form-group my-4 text-center">
+                <input disabled="disabled" type="submit" value="Add" class="btn w-25 btn-light fs-5 fw-bolder text-dark dm-serif-text-regular-italic add-btn" />
+            </div>
+        </form>
+    </div>
+</div>
+
+<script src="~/lib/jquery/dist/jquery.min.js"></script>
+<script>
+    $(document).ready(function () {
+    
+      $(document).on('change', '.item', function (e) {
+          var storeSelectorElement = $('.store')
+          var itemId = $('.item').val()
+          var storeId = $('.store').val();
+          console.log(itemId)
+          console.log(storeId)
+          if(itemId != "select Item" || storeId != "select Store")
+          {
+              $('.add-btn').prop('disabled', true);
+              $('.quantity').val(0);
+          }
+           if(itemId != "select Item" && storeId != "select Store")
+           {
+                $.ajax({
+                url: `/StoreItems/GetQuantity?storeId=${storeId}&itemId=${itemId}`,
+                type: 'GET',
+                success: function (res) {
+                    console.log(res)
+                    console.log($('#ItemQuantity').val(res))
+                   $('#ItemQuantity').val = res
+                   console.log($('#ItemQuantity').val())
+                   $('.add-btn').prop('disabled', false);
+                },
+                error: function () {
+                    console.log('Failed to load the update view. Please try again.');
+                }
+                
+            });
+           }
+      });
+
+       $(document).on('change', '.store', function (e) {
+            if(itemId != "select Item" || storeId != "select Store")
+          {
+              $('.add-btn').prop('disabled', true);
+              $('.quantity').val(0);
+          }
+          var itemId = $('.item').val()
+          var storeId = $('.store').val();
+           console.log(itemId)
+          console.log(storeId)
+           if(itemId != "select Item" && storeId != "select Store")
+           {
+                $.ajax({
+                url: `/StoreItems/GetQuantity?storeId=${storeId}&itemId=${itemId}`,
+                type: 'GET',
+                success: function (res) {
+                    console.log(res)
+                    console.log($('#ItemQuantity').val(res))
+                   $('#ItemQuantity').val = res
+                   console.log($('#ItemQuantity').val())
+                   $('.add-btn').prop('disabled', false);
+                },
+                error: function () {
+                    console.log('Failed to load the update view. Please try again.');
+                }
+            });
+           }
+      });
+
+    });
+</script>
+
+@section Scripts
+{
+    @{
+        await Html.RenderPartialAsync("_ValidationScriptsPartial");
+    }
+}
+
+
+

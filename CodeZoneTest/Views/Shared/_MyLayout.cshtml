@@ -1,0 +1,61 @@
+﻿@using Microsoft.AspNetCore.Mvc.TagHelpers;
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no" />
+    <meta name="description" content="" />
+    <meta name="author" content="" />
+    <title>Dashboard - MVC</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+
+    <link href="https://fonts.googleapis.com/css2?family=DM+Serif+Text:ital@0;1&display=swap" rel="stylesheet">
+    <link href="https://cdn.jsdelivr.net/npm/simple-datatables@7.1.2/dist/style.min.css" rel="stylesheet" />
+    <link href="css/styles.css" rel="stylesheet" />
+    <script src="https://use.fontawesome.com/releases/v6.3.0/js/all.js" crossorigin="anonymous"></script>
+</head>
+<body class="sb-nav-fixed bg-dark">
+    <nav class="navbar navbar-expand-lg navbar-dark bg-dark text-white shadow-lg">
+        <div class="container">
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="collapse navbar-collapse" id="navbarSupportedContent">
+                <ul class="navbar-nav mx-auto mb-2 mb-lg-0">
+                    <li class="nav-item">
+                        <a class="nav-link fw-bolder text-white fs-5 mx-2 px-5" asp-action="Index" asp-controller="Store">
+                            <i class="fa-solid fa-shop fw-bolder text-white fs-5"></i>
+                            Stores
+                        </a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link fw-bolder text-white fs-5 mx-2 px-5" asp-action="Index" asp-controller="Item">
+                            <i class="fa-brands fa-product-hunt fw-bolder text-white fs-5"></i>
+                            Items
+                        </a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link fw-bolder text-white fs-5 mx-2 px-5" asp-action="Index" asp-controller="StoreItems">
+                            <i class="fa-solid fa-basket-shopping  fw-bolder text-white fs-5"></i>
+                            Items Stores
+                        </a>
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </nav>
+   <main class="py-5 bg-dark" id="Custom-Main">
+       <div class="container-fluid">
+           @RenderBody()
+       </div>
+   </main>
+    <script src="~/lib/jquery/dist/jquery.min.js"></script>
+    <script src="~/lib/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="~/lib/jquery-validation/dist/additional-methods.min.js"></script>
+    <script src="~/lib/jquery-validation/dist/jquery.validate.min.js"></script>
+    <script src="~/lib/jquery-validation-unobtrusive/jquery.validate.unobtrusive.min.js"></script>
+    @await RenderSectionAsync("Scripts", required: false)
+</body>
+</html>

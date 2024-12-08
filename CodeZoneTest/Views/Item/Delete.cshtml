@@ -1,0 +1,23 @@
+﻿@model GetItemViewModel
+
+<h3 class="text-center dm-serif-text-regular-italic">Are you sure you want to delete this Item?</h3>
+<div>
+    <hr />
+    <dl class="row justify-content-center py-5 border-bottom border-white border-5">
+        <form asp-action="Delete" class="col-8">
+            <div class="form-group">
+                <label asp-for="Name" class="control-label"></label>
+                <input readonly asp-for="Name" class="form-control w-100" />
+            </div>
+            <div class="form-group">
+                <label asp-for="Id" class="control-label"></label>
+                <input readonly asp-for="Id" class="form-control" />
+            </div>
+            <div class="form-group d-flex justify-content-center my-4 text-center">
+                <input type="submit" value="Confirm Delete" class="btn btn-danger me-5 fs-6 fw-bolder text-white dm-serif-text-regular-italic" />
+                <a asp-action="Index" class="btn btn-info fs-6 fw-bolder text-white dm-serif-text-regular-italic">Cancel</a>
+            </div>
+        </form>
+    </dl>
+   
+</div>
